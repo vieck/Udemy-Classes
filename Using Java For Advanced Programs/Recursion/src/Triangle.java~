@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+
+public class Triangle {
+
+	int compute(int x, int y){
+		if (x == 0){
+			return 1;
+		} else if (x == y){
+			return 1;
+		} else {
+			return compute(x-1,y-1) + compute(x-1,y);
+		}
+		
+	}
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int number = scan.nextInt();
+		while (number > 0){
+			
+		}
+	}
+
+}
