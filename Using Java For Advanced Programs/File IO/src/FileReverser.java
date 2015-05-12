@@ -9,7 +9,7 @@ public class FileReverser {
 
 	private void readFile() throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader("book.txt"));
-		PrintWriter writer = new PrintWriter(new FileOutputStream("output.txt"));
+		PrintWriter writer = new PrintWriter(new FileOutputStream("reader_output.txt"));
 		try {
 			String readFromFile = "";
 			String writeToFile = "";
@@ -17,6 +17,7 @@ public class FileReverser {
 			while ((readFromFile = reader.readLine()) != null) {
 				writeToFile = reverseWord(readFromFile);
 				writer.write(writeToFile);
+				writer.write("\n");
 			}
 		} finally {
 			reader.close();
