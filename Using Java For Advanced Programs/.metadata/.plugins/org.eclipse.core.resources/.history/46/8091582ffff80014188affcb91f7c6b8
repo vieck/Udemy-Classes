@@ -1,0 +1,17 @@
+
+public class Sort {
+
+	private static <E extends Comparable<E>> void organize (E[] array) {
+		for (int i = 0; i < array.length; i++){
+			for (int j = i + 1; j < array.length; j++){
+				
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		Integer[] intArray = {4,10,2,5,1,-6};
+
+	}
+
+}

@@ -1,4 +1,3 @@
-import java.util.Collections;
 import java.util.Scanner;
 
 
@@ -18,13 +17,13 @@ public class Plotter {
 		Character[] cArray = {'K','i','t','t','y'};
 		String input = "";
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Integer Array");
+		System.out.print("Integer Array:");
 		printArray(iArray);
-		System.out.println("String Array");
+		System.out.print("String Array:");
 		printArray(sArray);
-		System.out.println("Double Array");
+		System.out.print("Double Array:");
 		printArray(dArray);
-		System.out.println("Char Array");
+		System.out.print("Char Array:");
 		printArray(cArray);
 	}
 

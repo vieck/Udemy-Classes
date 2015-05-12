@@ -1,0 +1,13 @@
+
+public class Sort {
+
+	private static <E extends Comparable<E>>  organize (E[] array) {
+		
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,20 +1,12 @@
 import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.channels.AsynchronousByteChannel;
-import java.nio.channels.Channel;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
-
-import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException;
 
 
 public class Downloader {
