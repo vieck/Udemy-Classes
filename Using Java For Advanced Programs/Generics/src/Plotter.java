@@ -15,8 +15,6 @@ public class Plotter {
 		String[] sArray = {"Hello","My","Friends","Goodbye"};
 		Double[] dArray = {1.0,2.0,3.0,4.0};
 		Character[] cArray = {'K','i','t','t','y'};
-		String input = "";
-		Scanner scan = new Scanner(System.in);
 		System.out.print("Integer Array:");
 		printArray(iArray);
 		System.out.print("String Array:");

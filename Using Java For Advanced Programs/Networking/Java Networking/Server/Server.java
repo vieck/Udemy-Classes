@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.Arrays;
 
 public class Server implements Runnable {
 	public final String[] commands = { ":GET_ADDRESS", ":GET_PORT", ":SPEAK",
@@ -16,85 +17,113 @@ public class Server implements Runnable {
 
 	public Server(int port) throws IOException {
 		this.port = port;
-		serverSocket = new ServerSocket(port);
-		serverSocket.setSoTimeout(TIMEOUT);
 	}
 
 	public void run() {
 		synchronized (this) {
 			this.currentThread = Thread.currentThread();
 		}
+		openServerSocket();
 		while (isRunning) {
 			Socket connection;
 			try {
 				connection = serverSocket.accept();
-				processRequest(connection);
+				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				if(!isRunning){
+					System.out.println("Server halted.");
+					return;
+				}
+				throw new RuntimeException("Connection failed.");
 			}
 			System.out.println("Client connected");
-
+			processRequest(connection);
+			
 		}
+		System.out.println("Server Ended");
 	}
 
 	public void processRequest(Socket connection) {
 		try {
-			DataInputStream inputData = new DataInputStream(
-					connection.getInputStream());
-			DataOutputStream outputData = new DataOutputStream(
-					connection.getOutputStream());
-			String input = inputData.readUTF();
+			DataInputStream reader = new DataInputStream(connection.getInputStream());
+			DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
+			String input = reader.readUTF();
 			if (input.equals(commands[0])) {
-				outputData.writeUTF("The server address is "
+				writer.writeUTF("The server address is "
 						+ connection.getInetAddress().getHostAddress());
+				writer.flush();
 			} else if (input.equals(commands[1])) {
-				System.out
-						.println("The server port is " + connection.getPort());
+				writer.writeUTF("The server port is " + connection.getPort());
+				writer.flush();
 			} else if (input.equals(commands[2])) {
-				System.out.println("Here's Johnny!!!");
+				writer.writeUTF("Here's Johnny!!!");
+				writer.flush();
 			} else if (input.equals(commands[3])) {
-				System.out.println("Goodbye!");
+				writer.writeUTF("Goodbye!");
+				writer.flush();
 				connection.close();
 			} else if (input.equals(commands[4])) {
-				String s = inputData.readUTF();
+				String s = reader.readUTF();
 				StringBuilder builder = new StringBuilder(s);
 				builder.reverse();
 				String output = builder.toString();
-				outputData.writeUTF(output);
+				writer.writeUTF(output);
+				writer.flush();
 			} else if (input.contains("-c")) {
-				String output = commands.toString();
-				outputData.writeUTF(output);
+				System.out.println("-c");
+				String output = Arrays.toString(commands);
+				writer.writeUTF(output);
+				writer.flush();
 			} else {
-				outputData.writeUTF("Invalid Command");
+				writer.writeUTF("Invalid Command");
+				writer.flush();
 			}
 			return;
 		} catch (SocketTimeoutException e) {
 			System.out.println("Client Timed Out");
 		} catch (IOException e) {
-			System.out.println("IO Exception.");
+			System.out.println("IO Exception with input.");
 			return;
 		}
 	}
-	
+
+	@SuppressWarnings("unused")
 	private synchronized boolean isRunning() {
-        return this.isRunning;
-    }
-
-    public synchronized void stop(){
-        this.isRunning = false;
-        try {
-            this.serverSocket.close();
-        } catch (IOException e) {
-            throw new RuntimeException("Error closing server", e);
-        }
-    }
-
-	public static void main(String[] args) throws Exception {
-		Server server = new Server(Integer.parseInt(args[0]));
-		new Thread(server).start();
-		Thread.sleep(40000);
-		server.stop();
+		return this.isRunning;
 	}
 
+	public synchronized void stop() {
+		this.isRunning = false;
+		try {
+			this.serverSocket.close();
+		} catch (IOException e) {
+			throw new RuntimeException("Error closing server", e);
+		}
+	}
+	
+	 private void openServerSocket() {
+	        try {
+	            this.serverSocket = new ServerSocket(this.port);
+	        } catch (IOException e) {
+	            throw new RuntimeException("Cannot open port: "+this.port, e);
+	        }
+	    }
+
+	public static void main(String[] args) {
+		try {
+			Server server = new Server(Integer.parseInt(args[0]));
+			new Thread(server).start();
+			try {
+				Thread.sleep(40000);
+			} catch (InterruptedException e) {
+				System.out.println("Thread Interrupted");
+			}
+			server.stop();
+		} catch (IOException e) {
+			System.out.println("Input problem");
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out
+					.println("The format of this program is java Server {port}");
+		}
+	}
 }
