@@ -1,17 +1,17 @@
 INDEX VERSION 1.127+C:\Users\Michael\Documents\GitHub\Udemy-Classes\Using Java For Advanced Programs\.metadata\.plugins\org.eclipse.jdt.core
-2090482743.index
 1760336243.index
-2130152012.index
-1926144101.index
-1811389807.index
+105210318.index
+265732991.index
 3491804422.index
+1811389807.index
+1926144101.index
 251782801.index
+174553.index
 2248287622.index
 3158849313.index
 1667022092.index
-174553.index
-1198961354.index
 4039342660.index
+1198961354.index
 2620426498.index
 4134526084.index
 3040345233.index
@@ -21,7 +21,8 @@ INDEX VERSION 1.127+C:\Users\Michael\Documents\GitHub\Udemy-Classes\Using Java F
 3933804599.index
 2486620669.index
 2420995280.index
+2090482743.index
 2804169155.index
 3038630371.index
 2634579158.index
-105210318.index
+2130152012.index
