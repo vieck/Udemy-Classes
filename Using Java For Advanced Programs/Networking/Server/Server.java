@@ -1,14 +1,14 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.Arrays;
 
 public class Server implements Runnable {
-	public final String[] commands = { ":GET_ADDRESS", ":GET_PORT", ":SPEAK",
-			":QUIT", ":REVERSE" };
 	protected ServerSocket serverSocket;
 	protected Thread currentThread;
 	protected boolean isRunning = true;
@@ -36,55 +36,30 @@ public class Server implements Runnable {
 				}
 				throw new RuntimeException("Connection failed.");
 			}
+			
+			try {
 			System.out.println("Client connected");
 			processRequest(connection);
+			} catch (IOException e){
+				System.out.println("IOException");
+			}
 			
 		}
 		System.out.println("Server Ended");
 	}
 
-	public void processRequest(Socket connection) {
-		try {
-			DataInputStream reader = new DataInputStream(connection.getInputStream());
-			DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
-			String input = reader.readUTF();
-			if (input.equals(commands[0])) {
-				writer.writeUTF("The server address is "
-						+ connection.getInetAddress().getHostAddress());
-				writer.flush();
-			} else if (input.equals(commands[1])) {
-				writer.writeUTF("The server port is " + connection.getPort());
-				writer.flush();
-			} else if (input.equals(commands[2])) {
-				writer.writeUTF("Here's Johnny!!!");
-				writer.flush();
-			} else if (input.equals(commands[3])) {
-				writer.writeUTF("Goodbye!");
-				writer.flush();
-				connection.close();
-			} else if (input.equals(commands[4])) {
-				String s = reader.readUTF();
-				StringBuilder builder = new StringBuilder(s);
-				builder.reverse();
-				String output = builder.toString();
-				writer.writeUTF(output);
-				writer.flush();
-			} else if (input.contains("-c")) {
-				System.out.println("-c");
-				String output = Arrays.toString(commands);
-				writer.writeUTF(output);
-				writer.flush();
-			} else {
-				writer.writeUTF("Invalid Command");
-				writer.flush();
-			}
-			return;
-		} catch (SocketTimeoutException e) {
-			System.out.println("Client Timed Out");
-		} catch (IOException e) {
-			System.out.println("IO Exception with input.");
-			return;
-		}
+	public void processRequest(Socket connection) throws IOException{
+			InputStream  input  = connection.getInputStream();
+	        OutputStream output = connection.getOutputStream();
+	        long time = System.currentTimeMillis();
+
+	        output.write(("HTTP/1.1 200 OK\n\n<html><body>" +
+	                "Singlethreaded Server: " +
+	                time +
+	                "</body></html>").getBytes());
+	        output.close();
+	        input.close();
+	        System.out.println("Request processed: " + time);
 	}
 
 	@SuppressWarnings("unused")
