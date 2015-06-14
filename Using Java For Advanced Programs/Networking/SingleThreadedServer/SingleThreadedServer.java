@@ -17,10 +17,18 @@ public class SingleThreadedServer implements Runnable {
 	protected final int TIMEOUT = 300000;
 	protected int port;
 
+	/* 1 **/
 	public SingleThreadedServer(int port) throws IOException {
 		this.port = port;
 	}
-
+	
+	/* 4 **/
+	@SuppressWarnings("unused")
+	private synchronized boolean isRunning() {
+		return this.isRunning;
+	}
+	
+	/* 2 **/
 	public void run() {
 		synchronized (this) {
 			this.currentThread = Thread.currentThread();
@@ -51,6 +59,7 @@ public class SingleThreadedServer implements Runnable {
 		System.out.println("Server Ended");
 	}
 	
+	/* 3 **/
 	private void openServerSocket() {
 		try {
 			this.serverSocket = new ServerSocket(this.port);
@@ -59,6 +68,7 @@ public class SingleThreadedServer implements Runnable {
 		}
 	}
 
+	/* 5 **/
 	public void processRequest(Socket connection) throws IOException{
 			InputStream  input  = connection.getInputStream();
 	        OutputStream output = connection.getOutputStream();
@@ -75,11 +85,7 @@ public class SingleThreadedServer implements Runnable {
 	        System.out.println("Request processed: " + time);
 	}
 
-	@SuppressWarnings("unused")
-	private synchronized boolean isRunning() {
-		return this.isRunning;
-	}
-
+	/* 6 **/
 	public synchronized void stop() {
 		this.isRunning = false;
 		try {
