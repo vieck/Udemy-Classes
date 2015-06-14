@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="Server"/>
+	<classpathentry kind="src" path="SingleThreadedServer"/>
 	<classpathentry kind="src" path="Client"/>
 	<classpathentry kind="src" path="Http Request"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
