@@ -1,0 +1,224 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".WeatherActivity">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/cityText"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="12dp"
+                android:gravity="center"
+                android:text="@string/location"
+                android:textColor="#000000" />
+
+            <RelativeLayout
+                android:id="@+id/temp_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cityText"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:id="@+id/condIcon"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/temp"
+                    style="@style/tempStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/condIcon"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:id="@+id/descrWeather"
+                    style="@style/valData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/temp"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+
+            <!-- Temperature data -->
+            <ImageView
+                android:id="@+id/tempIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_below="@id/temp_layout"
+                android:src="@drawable/temperature" />
+
+            <TextView
+                android:id="@+id/tempMin"
+                style="@style/valData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/tempIcon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/tempIcon" />
+
+            <TextView
+                android:id="@+id/tempMax"
+                style="@style/valData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/tempMin"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/tempMin" />
+
+            <!-- Wind data -->
+            <ImageView
+                android:id="@+id/windIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_below="@id/tempIcon"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/wind" />
+
+            <TextView
+                android:id="@+id/windSpeed"
+                style="@style/valData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/tempMin"
+                android:layout_alignStart="@id/tempMin"
+                android:layout_alignTop="@id/windIcon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/windIcon" />
+
+            <!-- Humidity -->
+            <ImageView
+                android:id="@+id/humidityIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_below="@id/windIcon"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/humidity" />
+
+            <TextView
+                android:id="@+id/hum"
+                style="@style/valData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/tempMin"
+                android:layout_alignStart="@id/tempMin"
+                android:layout_alignTop="@id/humidityIcon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/humidityIcon" />
+
+            <!-- Pressure data -->
+            <ImageView
+                android:id="@+id/pressureIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_below="@id/humidityIcon"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/pressure" />
+
+            <TextView
+                android:id="@+id/pressure"
+                style="@style/valData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/tempMin"
+                android:layout_alignStart="@id/tempMin"
+                android:layout_alignTop="@id/pressureIcon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/pressureIcon" />
+            <!-- End Pressure data -->
+
+            <!-- Visibility -->
+            <ImageView
+                android:id="@+id/visibilityIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_below="@id/pressureIcon"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/eye" />
+
+            <TextView
+                android:id="@+id/visibility"
+                style="@style/valData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/tempMin"
+                android:layout_alignStart="@id/tempMin"
+                android:layout_alignTop="@id/visibilityIcon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/visibilityIcon" />
+            <!-- End visibility -->
+
+            <!-- Astronomy -->
+            <ImageView
+                android:id="@+id/sunIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_below="@id/visibilityIcon"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/sun" />
+
+            <TextView
+                android:id="@+id/sunrise"
+                style="@style/valData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/tempMin"
+                android:layout_alignStart="@id/tempMin"
+                android:layout_alignTop="@id/sunIcon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/sunIcon" />
+
+            <ImageView
+                android:id="@+id/moonIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_below="@id/sunIcon"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/moon_icon" />
+
+            <TextView
+                android:id="@+id/sunset"
+                style="@style/valData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/tempMin"
+                android:layout_alignStart="@id/tempMin"
+                android:layout_alignTop="@id/moonIcon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/moonIcon" />
+
+            <!-- End astronomy -->
+            <TextView
+                style="@style/textVerySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/provider" />
+        </RelativeLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>
