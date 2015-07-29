@@ -1,0 +1,23 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RssActivity">
+
+    <android.support.design.widget.AppBarLayout
+       android:id="@+id/tab_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar" />
+
+        <android.support.design.widget.TabLayout
+           android:id="@+id/toolbar_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+</android.support.design.widget.CoordinatorLayout>
